@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Библиотека</title>
+</head>
+
+<body>
+
+<a href="/books">Список книг</a>
+<br/><br/>
+
+<form th:method="POST" th:action="@{/}">
+  <label for="bookQuery">Найти книгу: </label>
+  <input type="text" id="bookQuery" name="bookQuery"/>
+  <input type="submit" value="Поиск"/>
+  <br/><br/>
+</form>
+
+<div th:if="${books}">
+  <div th:if="${books.isEmpty()}">
+    <span>Книг не найдено</span>
+    <br/><br/>
+  </div>
+
+  <div th:each="book : ${books}">
+    <p th:text="${book.getTitle() + ', ' + book.getAuthor() + ', ' + book.getYear()}"></p>
+
+    <div th:if="${book.getOwner() != null}">
+      <span>Книга сейчас у: </span>
+      <span th:text="${book.getOwner().getFullName()}"></span>
+      <br/><br/>
+    </div>
+
+    <div th:if="${book.getOwner() == null}">
+      <span>Книга свободна</span>
+      <br/><br/>
+    </div>
+
+  </div>
+</div>
+
+<a href="/people">Список читателей</a>
+<br/><br/>
+
+<form th:method="POST" th:action="@{/}">
+  <label for="personQuery">Найти читателя: </label>
+  <input type="text" id="personQuery" name="personQuery"/>
+  <input type="submit" value="Поиск"/>
+</form>
+
+<div th:if="${people}">
+  <div th:if="${people.isEmpty()}">
+    <br/>
+    <span>Читатель не найден</span>
+  </div>
+
+  <div th:each="person : ${people}">
+    <p th:text="${person.getFullName() + ', ' + person.getYearOfBirth()}"></p>
+  </div>
+</div>
+
+</body>
+</html>

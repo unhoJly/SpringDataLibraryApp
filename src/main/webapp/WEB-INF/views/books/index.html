@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Список книг</title>
+</head>
+
+<body>
+<a href="/books/new">Добавить книгу</a>
+<br/><br/><br/>
+Книги в наличии:
+<br/><br/>
+
+<div th:each="book : ${books}">
+    <a th:href="@{/books/{id}(id=${book.getId()})}"
+       th:text="${book.getTitle() + ', ' + book.getAuthor() + ', ' + book.getYear()}"
+       th:style="${book.isExpired()} ? 'color: red' : 'color: default'"></a>
+</div>
+
+<br/><br/>
+<a>Предыдущая страница</a>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a>Следующая страница</a>
+<br/><br/>
+<form th:method="POST" th:action="@{/books}">
+    <label for="goto">Перейти на страницу: </label>
+    <input type="text" id="goto"/>
+    <input type="submit" value="ОК"/>
+</form>
+<br/>
+<form th:method="POST" th:action="@{/books}">
+    <label for="pages">Страниц на листе: </label>
+    <input type="text" id="pages"/>
+    <input type="submit" value="ОК"/>
+</form>
+
+<hr/>
+
+<a href="/books?sort_by_year=true">Сортировка по году издания (по возрастанию)</a>
+&nbsp;&nbsp;&nbsp;
+<a href="/books">Без сортировки</a>
+<br/><br/><br/>
+
+<a href="/people">Cписок читателей</a>
+&nbsp;&nbsp;&nbsp;
+<a href="/">Главная страница</a>
+</body>
+</html>
