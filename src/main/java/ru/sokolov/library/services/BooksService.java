@@ -3,13 +3,11 @@ package ru.sokolov.library.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.sokolov.library.models.Book;
 import ru.sokolov.library.models.Person;
 import ru.sokolov.library.repositories.BooksRepository;
-import ru.sokolov.library.repositories.PeopleRepository;
 
 import java.util.Date;
 import java.util.List;
@@ -26,17 +24,37 @@ public class BooksService {
     }
 
     public List<Book> findAll(boolean sortByYear) {
+        booksRepository.findAll().forEach(book -> {
+            if (book.getTakenAt() != null) {
+                long diffInMillies = Math.abs(book.getTakenAt().getTime() - new Date().getTime());
+
+                if (diffInMillies > 864_000_000) { // = 10 суток
+                    book.setExpired(true); // книга просрочена
+                }
+            }
+        });
+
         if (sortByYear) {
             return booksRepository.findAll(Sort.by("year"));
-        }  else {
+        } else {
             return booksRepository.findAll();
         }
     }
 
     public List<Book> findWithPagination(Integer page, Integer booksPerPage, boolean sortByYear) {
+        booksRepository.findAll().forEach(book -> {
+            if (book.getTakenAt() != null) {
+                long diffInMillies = Math.abs(book.getTakenAt().getTime() - new Date().getTime());
+
+                if (diffInMillies > 864_000_000) { // = 10 суток
+                    book.setExpired(true); // книга просрочена
+                }
+            }
+        });
+
         if (sortByYear) {
             return booksRepository.findAll(PageRequest.of(page, booksPerPage, Sort.by("year"))).getContent();
-        }  else {
+        } else {
             return booksRepository.findAll(PageRequest.of(page, booksPerPage)).getContent();
         }
     }

@@ -14,31 +14,34 @@ CREATE TABLE book
     person_id INT          REFERENCES person (id) ON DELETE SET NULL,
     title     VARCHAR(100) NOT NULL,
     author    VARCHAR(100) NOT NULL,
-    year      INT          NOT NULL
+    year      INT          NOT NULL,
+    taken_at  TIMESTAMP
 );
 
-INSERT INTO person (full_name, year_of_birth)
-VALUES ('Иванов Иван Иванович', '1970');
-INSERT INTO person (full_name, year_of_birth)
-VALUES ('Петров Пётр Петрович', '1960');
-INSERT INTO person (full_name, year_of_birth)
-VALUES ('Алексеев Алексей Алексеевич', '1984');
-INSERT INTO person (full_name, year_of_birth)
-VALUES ('Познер Владимир Владимирович', '1944');
-INSERT INTO person (full_name, year_of_birth)
-VALUES ('Фёдоров Мирон Янович', '1985');
+INSERT INTO person (full_name, year_of_birth) VALUES ('Иванов Иван Иванович', '1970');
+INSERT INTO person (full_name, year_of_birth) VALUES ('Петров Пётр Петрович', '1960');
+INSERT INTO person (full_name, year_of_birth) VALUES ('Алексеев Алексей Алексеевич', '1984');
+INSERT INTO person (full_name, year_of_birth) VALUES ('Познер Владимир Владимирович', '1944');
+INSERT INTO person (full_name, year_of_birth) VALUES ('Фёдоров Мирон Янович', '1985');
 
-INSERT INTO book (person_id, title, author, year)
-VALUES (NULL, 'Над пропастью во ржи', 'Джером Сэлинджер', '1951');
-INSERT INTO book (person_id, title, author, year)
-VALUES (NULL, 'День опричника', 'Владимир Сорокин', '2006');
-INSERT INTO book (person_id, title, author, year)
-VALUES (NULL, 'Тайные виды на гору Фудзи', 'Владимир Пелёвин', '2018');
-INSERT INTO book (person_id, title, author, year)
-VALUES (NULL, 'Философия Java', 'Брюс Эккель', '2018');
-INSERT INTO book (person_id, title, author, year)
-VALUES (NULL, 'Психопатология обыденной жизни', 'Фрейд Зигмунд', '1904');
-INSERT INTO book (person_id, title, author, year)
-VALUES (NULL, 'Игра в бисер', 'Герман Гессе', '1943');
-INSERT INTO book (person_id, title, author, year)
-VALUES (NULL, 'Бытие и время', 'Мартин Хайдеггер', '1927');
+
+INSERT INTO book (person_id, title, author, year, taken_at)
+VALUES (NULL, 'Над пропастью во ржи', 'Джером Сэлинджер', '1951', NULL);
+
+INSERT INTO book (person_id, title, author, year, taken_at)
+VALUES (NULL, 'День опричника', 'Владимир Сорокин', '2006', NULL);
+
+INSERT INTO book (person_id, title, author, year, taken_at)
+VALUES (NULL, 'Тайные виды на гору Фудзи', 'Владимир Пелёвин', '2018', NULL);
+
+INSERT INTO book (person_id, title, author, year, taken_at)
+VALUES (NULL, 'Философия Java', 'Брюс Эккель', '2018', NULL);
+
+INSERT INTO book (person_id, title, author, year, taken_at)
+VALUES (NULL, 'Психопатология обыденной жизни', 'Фрейд Зигмунд', '1904', NULL);
+
+INSERT INTO book (person_id, title, author, year, taken_at)
+VALUES (NULL, 'Игра в бисер', 'Герман Гессе', '1943', NULL);
+
+INSERT INTO book (person_id, title, author, year, taken_at)
+VALUES (NULL, 'Бытие и время', 'Мартин Хайдеггер', '1927', NULL);
